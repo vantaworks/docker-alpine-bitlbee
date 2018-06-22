@@ -89,6 +89,9 @@ slack-install:
 	@cd $(SRC_DIR)/slack-libpurple
 	make install
 
+slack-clean:
+	rm -rf $(SRC_DIR)/slack-libpurple
+
 steam-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee-steam $(SRC_DIR)/bitlbee-steam
