@@ -13,8 +13,9 @@ clean-all: clean clean-self
 
 bitlbee-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/bitlbee/bitlbee -b $(BITLBEE_COMMIT)
+	git clone -n https://github.com/bitlbee/bitlbee
 	@cd bitlbee
+	git checkout $(BITLBEE_COMMIT)
 	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
 	make
 
@@ -29,8 +30,9 @@ bitlbee-clean:
 
 discord-build: bitlbee
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/sm00th/bitlbee-discord -b $(DISCORD_COMMIT)
+	git clone -n https://github.com/sm00th/bitlbee-discord
 	@cd bitlbee-discord
+	git checkout $(DISCORD_COMMIT)
 	./autogen.sh
 	./configure
 	make
@@ -44,8 +46,9 @@ discord-clean:
 
 facebook-build: bitlbee
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/jgeboski/bitlbee-facebook -b $(FACEBOOK_COMMIT)
+	git clone -n https://github.com/jgeboski/bitlbee-facebook
 	@cd bitlbee-facebook
+	git checkout $(FACEBOOK_COMMIT)
 	./autogen.sh
 	make
 
@@ -58,8 +61,9 @@ facebook-clean:
 
 skype-build: bitlbee
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/EionRobb/skype4pidgin -b $(SKYPE_COMMIT)
+	git clone -n https://github.com/EionRobb/skype4pidgin
 	@cd skype4pidgin/skypeweb
+	git checkout $(SKYPE_COMMIT)
 	make
 
 skype-install:
@@ -71,8 +75,9 @@ skype-clean:
 
 slack-build: bitlbee
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/dylex/slack-libpurple -b $(SLACK_COMMIT)
+	git clone -n https://github.com/dylex/slack-libpurple
 	@cd slack-libpurple
+	git checkout $(SLACK_COMMIT)
 	make
 
 slack-install:
@@ -81,8 +86,9 @@ slack-install:
 
 steam-build: bitlbee
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/bitlbee/bitlbee-steam -b $(STEAM_COMMIT)
+	git clone -n https://github.com/bitlbee/bitlbee-steam
 	@cd bitlbee-steam
+	git checkout $(STEAM_COMMIT)
 	./autogen.sh
 	make
 
@@ -95,8 +101,9 @@ steam-clean:
 
 telegram-build: bitlbee
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/majn/telegram-purple -b $(TELEGRAM_COMMIT)
+	git clone -n https://github.com/majn/telegram-purple
 	@cd telegram-purple
+	git checkout $(TELEGRAM_COMMIT)
 	git submodule update --init --recursive
 	./configure
 	make
