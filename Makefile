@@ -15,7 +15,7 @@ bitlbee-build:
 	cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee $(SRC_DIR)/bitlbee
 	cd $(SRC_DIR)/bitlbee
-	git checkout -b $(BITLBEE_COMMIT)
+	git reset --hard $(BITLBEE_COMMIT)
 	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
 	make
 
@@ -32,7 +32,7 @@ discord-build: bitlbee
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/sm00th/bitlbee-discord $(SRC_DIR)/bitlbee-discord
 	@cd $(SRC_DIR)/bitlbee-discord
-	git checkout -b $(DISCORD_COMMIT)
+	git reset --hard $(DISCORD_COMMIT)
 	./autogen.sh
 	./configure
 	make
@@ -48,7 +48,7 @@ facebook-build: bitlbee
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/jgeboski/bitlbee-facebook $(SRC_DIR)/bitlbee-facebook
 	@cd $(SRC_DIR)/bitlbee-facebook
-	git checkout -b $(FACEBOOK_COMMIT)
+	git reset --hard $(FACEBOOK_COMMIT)
 	./autogen.sh
 	make
 
@@ -63,7 +63,7 @@ skype-build: bitlbee
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/EionRobb/skype4pidgin $(SRC_DIR)/skype4pidgin
 	@cd $(SRC_DIR)/skype4pidgin/skypeweb
-	git checkout -b $(SKYPE_COMMIT)
+	git reset --hard $(SKYPE_COMMIT)
 	make
 
 skype-install:
@@ -77,7 +77,7 @@ slack-build: bitlbee
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/dylex/slack-libpurple $(SRC_DIR)/slack-libpurple
 	@cd $(SRC_DIR)/slack-libpurple
-	git checkout -b $(SLACK_COMMIT)
+	git reset --hard $(SLACK_COMMIT)
 	make
 
 slack-install:
@@ -88,7 +88,7 @@ steam-build: bitlbee
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee-steam $(SRC_DIR)/bitlbee-steam
 	@cd $(SRC_DIR)/bitlbee-steam
-	git checkout -b $(STEAM_COMMIT)
+	git reset --hard $(STEAM_COMMIT)
 	./autogen.sh
 	make
 
@@ -103,7 +103,7 @@ telegram-build: bitlbee
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/majn/telegram-purple $(SRC_DIR)/telegram-purple
 	@cd $(SRC_DIR)/telegram-purple
-	git checkout -b $(TELEGRAM_COMMIT)
+	git reset --hard $(TELEGRAM_COMMIT)
 	git submodule update --init --recursive
 	./configure
 	make
