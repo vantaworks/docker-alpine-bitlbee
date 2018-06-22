@@ -3,6 +3,7 @@ CONFIG_DIR ?= /opt/bitlbee-data
 
 include versions.mk
 
+.ONESHELL:
 all: bitlbee-build discord-build facebook-build skype-build slack-build steam-build telegram-build hangouts-build
 
 install: bitlbee-install discord-install facebook-install skype-install slack-install steam-install telegram-install hangouts-install
@@ -28,7 +29,7 @@ bitlbee-install:
 bitlbee-clean:
 	rm -rf $(SRC_DIR)/bitlbee
 
-discord-build: bitlbee
+discord-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/sm00th/bitlbee-discord $(SRC_DIR)/bitlbee-discord
 	@cd $(SRC_DIR)/bitlbee-discord
@@ -44,7 +45,7 @@ discord-install:
 discord-clean:
 	rm -rf $(SRC_DIR)/bitlbee-discord
 
-facebook-build: bitlbee
+facebook-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/jgeboski/bitlbee-facebook $(SRC_DIR)/bitlbee-facebook
 	@cd $(SRC_DIR)/bitlbee-facebook
@@ -59,7 +60,7 @@ facebook-install:
 facebook-clean:
 	rm -rf $(SRC_DIR)/bitlbee-facebook
 
-skype-build: bitlbee
+skype-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/EionRobb/skype4pidgin $(SRC_DIR)/skype4pidgin
 	@cd $(SRC_DIR)/skype4pidgin/skypeweb
@@ -73,7 +74,7 @@ skype-install:
 skype-clean:
 	rm -rf $(SRC_DIR)/skype4pidgin
 
-slack-build: bitlbee
+slack-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/dylex/slack-libpurple $(SRC_DIR)/slack-libpurple
 	@cd $(SRC_DIR)/slack-libpurple
@@ -84,7 +85,7 @@ slack-install:
 	@cd $(SRC_DIR)/slack-libpurple
 	make install
 
-steam-build: bitlbee
+steam-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee-steam $(SRC_DIR)/bitlbee-steam
 	@cd $(SRC_DIR)/bitlbee-steam
@@ -99,7 +100,7 @@ steam-install:
 steam-clean:
 	rm -rf $(SRC_DIR)/bitlbee-steam
 
-telegram-build: bitlbee
+telegram-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/majn/telegram-purple $(SRC_DIR)/telegram-purple
 	@cd $(SRC_DIR)/telegram-purple
@@ -115,7 +116,7 @@ telegram-install:
 telegram-clean:
 	rm -rf $(SRC_DIR)/telegram-purple
 
-hangouts-build: bitlbee
+hangouts-build:
 	@cd $(SRC_DIR)
 	hg clone https://bitbucket.org/EionRobb/purple-hangouts -r $(HANGOUTS_COMMIT) $(SRC_DIR)/purple-hangouts
 	@cd $(SRC_DIR)/purple-hangouts
