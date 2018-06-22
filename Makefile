@@ -1,4 +1,5 @@
-BUILD_DIR ?= "/src"
+SRC_DIR ?= /src
+CONFIG_DIR ?= /opt/bitlbee-data
 
 include versions.mk
 
@@ -11,23 +12,23 @@ clean: bitlbee-clean discord-clean facebook-clean skype-clean slack-clean steam-
 clean-all: clean clean-self
 
 bitlbee-build:
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee -b $(BITLBEE_COMMIT)
 	@cd bitlbee
-	./configure --debug=0 --otr=1 --purple=1 --config=/opt/bitlbee-data
+	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
 	make
 
 bitlbee-install:
-	@cd $(BUILD_DIR)/bitlbee
+	@cd $(SRC_DIR)/bitlbee
 	make install
 	make install-dev
 	make install-etc
 
 bitlbee-clean:
-	rm -rf $(BUILD_DIR)/bitlbee
+	rm -rf $(SRC_DIR)/bitlbee
 
 discord-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/sm00th/bitlbee-discord -b $(DISCORD_COMMIT)
 	@cd bitlbee-discord
 	./autogen.sh
@@ -35,65 +36,65 @@ discord-build: bitlbee
 	make
 
 discord-install:
-	@cd $(BUILD_DIR)/bitlbee-discord
+	@cd $(SRC_DIR)/bitlbee-discord
 	make install
 
 discord-clean:
-	rm -rf $(BUILD_DIR)/bitlbee-discord
+	rm -rf $(SRC_DIR)/bitlbee-discord
 
 facebook-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/jgeboski/bitlbee-facebook -b $(FACEBOOK_COMMIT)
 	@cd bitlbee-facebook
 	./autogen.sh
 	make
 
 facebook-install:
-	@cd $(BUILD_DIR)/bitlbee-facebook
+	@cd $(SRC_DIR)/bitlbee-facebook
 	make install
 
 facebook-clean:
-	rm -rf $(BUILD_DIR)/bitlbee-facebook
+	rm -rf $(SRC_DIR)/bitlbee-facebook
 
 skype-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/EionRobb/skype4pidgin -b $(SKYPE_COMMIT)
 	@cd skype4pidgin/skypeweb
 	make
 
 skype-install:
-	@cd $(BUILD_DIR)/skype4pidgin/skypeweb
+	@cd $(SRC_DIR)/skype4pidgin/skypeweb
 	make install
 
 skype-clean:
-	rm -rf $(BUILD_DIR)/skype4pidgin
+	rm -rf $(SRC_DIR)/skype4pidgin
 
 slack-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/dylex/slack-libpurple -b $(SLACK_COMMIT)
 	@cd slack-libpurple
 	make
 
 slack-install:
-	@cd $(BUILD_DIR)/slack-libpurple
+	@cd $(SRC_DIR)/slack-libpurple
 	make install
 
 steam-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee-steam -b $(STEAM_COMMIT)
 	@cd bitlbee-steam
 	./autogen.sh
 	make
 
 steam-install:
-	@cd $(BUILD_DIR)/bitlbee-steam
+	@cd $(SRC_DIR)/bitlbee-steam
 	make install
 
 steam-clean:
-	rm -rf $(BUILD_DIR)/bitlbee-steam
+	rm -rf $(SRC_DIR)/bitlbee-steam
 
 telegram-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	git clone -n https://github.com/majn/telegram-purple -b $(TELEGRAM_COMMIT)
 	@cd telegram-purple
 	git submodule update --init --recursive
@@ -101,25 +102,25 @@ telegram-build: bitlbee
 	make
 
 telegram-install:
-	@cd $(BUILD_DIR)/telegram-purple
+	@cd $(SRC_DIR)/telegram-purple
 	make install
 
 telegram-clean:
-	rm -rf $(BUILD_DIR)/telegram-purple
+	rm -rf $(SRC_DIR)/telegram-purple
 
 hangouts-build: bitlbee
-	@cd $(BUILD_DIR)
+	@cd $(SRC_DIR)
 	hg clone https://bitbucket.org/EionRobb/purple-hangouts -r $(HANGOUTS_COMMIT)
 	@cd purple-hangouts
 	make
 	make install
 
 hangouts-install:
-	@cd $(BUILD_DIR)/purple-hangouts
+	@cd $(SRC_DIR)/purple-hangouts
 	make install
 
 hangouts-clean:
-	rm -rf $(BUILD_DIR)/purple-hangouts
+	rm -rf $(SRC_DIR)/purple-hangouts
 
 clean-self:
-	rm -rf $(BUILD_DIR)/bitlbee-plugins
+	rm -rf $(SRC_DIR)/bitlbee-plugins
