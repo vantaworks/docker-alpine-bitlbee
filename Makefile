@@ -66,8 +66,9 @@ facebook-clean:
 skype-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/EionRobb/skype4pidgin $(SRC_DIR)/skype4pidgin
-	@cd $(SRC_DIR)/skype4pidgin/skypeweb
+	@cd $(SRC_DIR)/skype4pidgin
 	git reset --hard $(SKYPE_COMMIT)
+	@cd $(SRC_DIR)/skype4pidgin/skypeweb
 	make
 
 skype-install:
