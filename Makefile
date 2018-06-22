@@ -4,7 +4,9 @@ CONFIG_DIR ?= /opt/bitlbee-data
 include versions.mk
 
 .ONESHELL:
-all: bitlbee-build discord-build facebook-build skype-build slack-build steam-build telegram-build hangouts-build
+all: bitlbee-build bitlbee-install discord-build discord-install facebook-build facebook-install skype-build skype-install slack-build slack-install steam-build steam-install telegram-build telegram-install hangouts-build hangouts-install clean
+
+build: bitlbee-build discord-build facebook-build skype-build slack-build steam-build telegram-build hangouts-build
 
 install: bitlbee-install discord-install facebook-install skype-install slack-install steam-install telegram-install hangouts-install
 
@@ -17,6 +19,7 @@ bitlbee-build:
 	git clone -n https://github.com/bitlbee/bitlbee $(SRC_DIR)/bitlbee
 	cd $(SRC_DIR)/bitlbee
 	git reset --hard $(BITLBEE_COMMIT)
+	mkdir -p $(CONFIG_DIR)
 	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
 	make
 
