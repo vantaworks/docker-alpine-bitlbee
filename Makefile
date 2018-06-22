@@ -12,9 +12,9 @@ clean: bitlbee-clean discord-clean facebook-clean skype-clean slack-clean steam-
 clean-all: clean clean-self
 
 bitlbee-build:
-	@cd $(SRC_DIR)
+	cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee
-	@cd $(SRC_DIR)/bitlbee
+	cd $(SRC_DIR)/bitlbee
 	git checkout -b $(BITLBEE_COMMIT)
 	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
 	make
