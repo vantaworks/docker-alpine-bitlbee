@@ -4,13 +4,13 @@ CONFIG_DIR ?= /opt/bitlbee-data
 include versions.mk
 
 .ONESHELL:
-all: bitlbee-build bitlbee-install discord-build discord-install facebook-build facebook-install skype-build skype-install slack-build slack-install steam-build steam-install telegram-build telegram-install hangouts-build hangouts-install clean
+all: bitlbee-build bitlbee-install discord-build discord-install facebook-build facebook-install skype-build skype-install slack-build slack-install steam-build steam-install telegram-build telegram-install hangouts-build hangouts-install mattermost-build mattermost-install clean
 
-build: bitlbee-build discord-build facebook-build skype-build slack-build steam-build telegram-build hangouts-build
+build: bitlbee-build discord-build facebook-build skype-build slack-build steam-build telegram-build hangouts-build mattermost-build
 
-install: bitlbee-install discord-install facebook-install skype-install slack-install steam-install telegram-install hangouts-install
+install: bitlbee-install discord-install facebook-install skype-install slack-install steam-install telegram-install hangouts-install mattermost-install
 
-clean: bitlbee-clean discord-clean facebook-clean skype-clean slack-clean steam-clean telegram-clean hangouts-clean
+clean: bitlbee-clean discord-clean facebook-clean skype-clean slack-clean steam-clean telegram-clean hangouts-clean mattermost-clean
 
 clean-all: clean clean-self
 
@@ -128,7 +128,6 @@ hangouts-build:
 	hg clone https://bitbucket.org/EionRobb/purple-hangouts -r $(HANGOUTS_COMMIT) $(SRC_DIR)/purple-hangouts
 	@cd $(SRC_DIR)/purple-hangouts
 	make
-	make install
 
 hangouts-install:
 	@cd $(SRC_DIR)/purple-hangouts
@@ -136,6 +135,20 @@ hangouts-install:
 
 hangouts-clean:
 	rm -rf $(SRC_DIR)/purple-hangouts
+
+mattermost-build:
+	cd $(SRC_DIR)
+	git clone -n https://github.com/EionRobb/purple-mattermost.git $(SRC_DIR)/purple-mattermost
+	cd $(SRC_DIR)/purple-mattermost
+	git reset --hard $(MATTERMOST_COMMIT)
+	make
+
+mattermost-install:
+	@cd $(SRC_DIR)/purple-mattermost
+	make install
+
+mattermost-clean:
+	rm -rf $(SRC_DIR)/purple-mattermost
 
 clean-self:
 	rm -rf $(SRC_DIR)/bitlbee-plugins
