@@ -20,7 +20,9 @@ Plugins allow BitlBee to connect to additional IM protocols. For an official lis
 Ultimately, it is just a `Makefile` that checks out known working versions of the plugins from the upstream repos and builds them.
 
 ### What will this work with?
-This project was ultimately built to support Alpine Linux as a Docker container; however, any system that has the following dependancies should work.
+This project was ultimately built to support Alpine Linux as a [Docker container](3); however, any system that has the following dependancies should work.
+
+[3]: https://cloud.docker.com/repository/docker/h4110w33n/bitlbee-plugins-docker
 
 ###### Buildtime Requirements
 autoconf
