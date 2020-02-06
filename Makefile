@@ -25,8 +25,7 @@ bitlbee-build:
 
 bitlbee-install:
 	@cd $(SRC_DIR)/bitlbee
-	make install
-	make install-dev
+	make install-dev	
 	make install-etc
 
 bitlbee-clean:
