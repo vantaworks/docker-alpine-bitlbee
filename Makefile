@@ -18,14 +18,13 @@ bitlbee-build:
 	cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee $(SRC_DIR)/bitlbee
 	cd $(SRC_DIR)/bitlbee
-	git reset --hard $(BITLBEE_COMMIT)
 	mkdir -p $(CONFIG_DIR)
 	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
 	make
 
 bitlbee-install:
 	@cd $(SRC_DIR)/bitlbee
-	make install-dev	
+	make install-dev
 	make install-etc
 
 bitlbee-clean:
@@ -35,7 +34,6 @@ discord-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/sm00th/bitlbee-discord $(SRC_DIR)/bitlbee-discord
 	@cd $(SRC_DIR)/bitlbee-discord
-	git reset --hard $(DISCORD_COMMIT)
 	./autogen.sh
 	./configure
 	make
@@ -51,7 +49,6 @@ facebook-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/jgeboski/bitlbee-facebook $(SRC_DIR)/bitlbee-facebook
 	@cd $(SRC_DIR)/bitlbee-facebook
-	git reset --hard $(FACEBOOK_COMMIT)
 	./autogen.sh
 	make
 
@@ -66,7 +63,6 @@ skype-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/EionRobb/skype4pidgin $(SRC_DIR)/skype4pidgin
 	@cd $(SRC_DIR)/skype4pidgin
-	git reset --hard $(SKYPE_COMMIT)
 	@cd $(SRC_DIR)/skype4pidgin/skypeweb
 	make
 
@@ -81,7 +77,6 @@ slack-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/dylex/slack-libpurple $(SRC_DIR)/slack-libpurple
 	@cd $(SRC_DIR)/slack-libpurple
-	git reset --hard $(SLACK_COMMIT)
 	make
 
 slack-install:
@@ -95,7 +90,6 @@ steam-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/bitlbee/bitlbee-steam $(SRC_DIR)/bitlbee-steam
 	@cd $(SRC_DIR)/bitlbee-steam
-	git reset --hard $(STEAM_COMMIT)
 	./autogen.sh
 	make
 
@@ -110,7 +104,6 @@ telegram-build:
 	@cd $(SRC_DIR)
 	git clone -n https://github.com/majn/telegram-purple $(SRC_DIR)/telegram-purple
 	@cd $(SRC_DIR)/telegram-purple
-	git reset --hard $(TELEGRAM_COMMIT)
 	git submodule update --init --recursive
 	./configure
 	make
@@ -139,7 +132,6 @@ mattermost-build:
 	cd $(SRC_DIR)
 	git clone -n https://github.com/EionRobb/purple-mattermost.git $(SRC_DIR)/purple-mattermost
 	cd $(SRC_DIR)/purple-mattermost
-	git reset --hard $(MATTERMOST_COMMIT)
 	make
 
 mattermost-install:
