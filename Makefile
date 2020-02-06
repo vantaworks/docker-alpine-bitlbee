@@ -1,7 +1,6 @@
 SRC_DIR ?= /src
 CONFIG_DIR ?= /opt/bitlbee-data
-
-include versions.mk
+CONTAINER_NAME ?= $(shell basename -s .git `git config --get remote.origin.url`)
 
 .ONESHELL:
 all: bitlbee-build bitlbee-install discord-build discord-install facebook-build facebook-install skype-build skype-install slack-build slack-install steam-build steam-install telegram-build telegram-install hangouts-build hangouts-install mattermost-build mattermost-install clean
@@ -16,14 +15,15 @@ clean-all: clean clean-self
 
 bitlbee-build:
 	cd $(SRC_DIR)
-	git clone -n https://github.com/bitlbee/bitlbee $(SRC_DIR)/bitlbee
+	git clone https://github.com/bitlbee/bitlbee $(SRC_DIR)/bitlbee
 	cd $(SRC_DIR)/bitlbee
 	mkdir -p $(CONFIG_DIR)
 	./configure --debug=0 --otr=1 --purple=1 --config=$(CONFIG_DIR)
-	make
+	make 
 
 bitlbee-install:
 	@cd $(SRC_DIR)/bitlbee
+	make
 	make install-dev
 	make install-etc
 
@@ -32,7 +32,7 @@ bitlbee-clean:
 
 discord-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/sm00th/bitlbee-discord $(SRC_DIR)/bitlbee-discord
+	git clone https://github.com/sm00th/bitlbee-discord $(SRC_DIR)/bitlbee-discord
 	@cd $(SRC_DIR)/bitlbee-discord
 	./autogen.sh
 	./configure
@@ -47,7 +47,7 @@ discord-clean:
 
 facebook-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/jgeboski/bitlbee-facebook $(SRC_DIR)/bitlbee-facebook
+	git clone https://github.com/jgeboski/bitlbee-facebook $(SRC_DIR)/bitlbee-facebook
 	@cd $(SRC_DIR)/bitlbee-facebook
 	./autogen.sh
 	make
@@ -61,7 +61,7 @@ facebook-clean:
 
 skype-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/EionRobb/skype4pidgin $(SRC_DIR)/skype4pidgin
+	git clone https://github.com/EionRobb/skype4pidgin $(SRC_DIR)/skype4pidgin
 	@cd $(SRC_DIR)/skype4pidgin
 	@cd $(SRC_DIR)/skype4pidgin/skypeweb
 	make
@@ -75,7 +75,7 @@ skype-clean:
 
 slack-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/dylex/slack-libpurple $(SRC_DIR)/slack-libpurple
+	git clone https://github.com/dylex/slack-libpurple $(SRC_DIR)/slack-libpurple
 	@cd $(SRC_DIR)/slack-libpurple
 	make
 
@@ -88,7 +88,7 @@ slack-clean:
 
 steam-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/bitlbee/bitlbee-steam $(SRC_DIR)/bitlbee-steam
+	git clone https://github.com/bitlbee/bitlbee-steam $(SRC_DIR)/bitlbee-steam
 	@cd $(SRC_DIR)/bitlbee-steam
 	./autogen.sh
 	make
@@ -102,7 +102,7 @@ steam-clean:
 
 telegram-build:
 	@cd $(SRC_DIR)
-	git clone -n https://github.com/majn/telegram-purple $(SRC_DIR)/telegram-purple
+	git clone https://github.com/majn/telegram-purple $(SRC_DIR)/telegram-purple
 	@cd $(SRC_DIR)/telegram-purple
 	git submodule update --init --recursive
 	./configure
@@ -117,7 +117,7 @@ telegram-clean:
 
 hangouts-build:
 	@cd $(SRC_DIR)
-	hg clone https://bitbucket.org/EionRobb/purple-hangouts -r $(HANGOUTS_COMMIT) $(SRC_DIR)/purple-hangouts
+	hg clone https://bitbucket.org/EionRobb/purple-hangouts $(SRC_DIR)/purple-hangouts
 	@cd $(SRC_DIR)/purple-hangouts
 	make
 
@@ -130,7 +130,7 @@ hangouts-clean:
 
 mattermost-build:
 	cd $(SRC_DIR)
-	git clone -n https://github.com/EionRobb/purple-mattermost.git $(SRC_DIR)/purple-mattermost
+	git clone https://github.com/EionRobb/purple-mattermost.git $(SRC_DIR)/purple-mattermost
 	cd $(SRC_DIR)/purple-mattermost
 	make
 
@@ -143,3 +143,13 @@ mattermost-clean:
 
 clean-self:
 	rm -rf $(SRC_DIR)/bitlbee-plugins
+
+# Docker Related image building (testing utilities)
+
+docker-clean:
+	@docker stop ${CONTAINER_NAME} || echo no container to remove && true
+	@docker rm ${CONTAINER_NAME} || echo no container to remove && true
+	@docker image rm ${CONTAINER_NAME} || echo no image to remove && true
+
+docker: docker-clean
+	docker build -t ${CONTAINER_NAME} .
