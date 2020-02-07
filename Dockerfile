@@ -19,6 +19,7 @@ RUN set -x \
 	&& apk add --virtual runtime-dependencies \
 		glib-dev \
 		gnutls-dev \
+		python3-dev \
 		json-glib \
 		libotr-dev \
 		libgcrypt-dev \
@@ -29,7 +30,6 @@ RUN set -x \
 		ca-certificates \
 	&& cd /src/bitlbee-plugins \
 	&& make all \
-	&& make clean-all \
 	&& apk del --purge build-dependencies \
 	&& adduser -u 1000 -S bitlbee \
 	&& addgroup -g 1000 -S bitlbee \
