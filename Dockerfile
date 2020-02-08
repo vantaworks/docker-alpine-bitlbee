@@ -259,32 +259,30 @@ RUN if [ ${TELEGRAM_ENABLED} -eq 1 ]; then cd /tmp && \
 # SIPE #
 ########
 ARG SIPE_ENABLED=1
-ARG SIPE_TAG=upstream/1.23.3
-RUN if [ ${SIPE_ENABLED} -eq 1 ]; then cd /tmp && \
-    apk add --no-cache --update --virtual sipe-build-deps \
-	    build-base \
-	    git \
-	    libtool \
-	    glib-dev \
-	    intltool \
-	    automake \
-	    autoconf \
-	    openssl-dev \
-	    libxml2-dev \
-	    pidgin-dev && \
-	git clone -n https://github.com/tieto/sipe.git && \
-	cd sipe && \
-	git checkout ${SIPE_TAG} && \
-	./autogen.sh && \
-	./configure \
-	    --build=x86_64-alpine-linux-musl \
-	    --host=x86_64-alpine-linux-musl \
-	    --prefix=/usr && \
-	make && \
-	make install && \
-	strip /usr/lib/purple-2/libsipe.so && \
-	rm -rf /tmp/* && \
-	apk del sipe-build-deps; fi
+ARG SIPE_TAG=launchpad-next
+RUN if [ ${SIPE_ENABLED} -eq 1 ]; then cd /tmp \
+ && apk add --no-cache --update --virtual .build-dependencies \
+	build-base \
+	git \
+	flex \
+	libtool \
+	glib-dev \
+	intltool \
+	automake \
+	autoconf \
+	openssl-dev \
+	libxml2-dev \
+	pidgin-dev \
+ && git clone -n https://github.com/tieto/sipe.git \
+ && cd sipe \
+ && git checkout ${SIPE_TAG} \
+ && ./autogen.sh \
+ && ./configure --build=x86_64-alpine-linux-musl --host=x86_64-alpine-linux-musl --prefix=/usr \
+ && make \
+ && make install \
+ && strip /usr/lib/purple-2/libsipe.so \
+ && rm -rf /tmp/* \
+ && apk del .build-dependencies; fi
 
 ##############
 # RocketChat #
