@@ -1,0 +1,11 @@
+---
+services: docker
+
+# Ensure Docker is up to date
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+
+# Build it, use it... break it?
+script:
+  - make all
