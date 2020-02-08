@@ -41,3 +41,7 @@ run: info
 .PHONY: shell
 shell:
 	docker exec -it ${CONTAINER_NAME} /bin/bash
+
+.PHONY: docker-webhook
+docker-webhook:
+	curl -X POST https://hub.docker.com/api/build/v1/source/${DOCKER_WEBHOOK_SOURCE}/trigger/${DOCKER_WEBHOOK_TRIGGER}/call/

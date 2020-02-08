@@ -8,12 +8,5 @@ before_install:
 
 # Build it, use it... break it?
 script:
-  - make all
-
-notifications:
-  webhooks:
-    if: branch = master
-    on_success: always
-    on_failure: never
-    url:
-      - https://hub.docker.com/api/build/v1/source/$DOCKER_WEBHOOK_SOURCE/trigger/$DOCKER_WEBHOOK_TRIGGER/call/
+  - make dist
+  - make docker-webhook
