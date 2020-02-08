@@ -1,5 +1,7 @@
 BitlBee with Plugins on Docker
 ==============================
+[![Build Status](https://travis-ci.com/vantaworks/docker-alpine-bitlbee.svg?branch=master)](https://travis-ci.com/vantaworks/docker-alpine-bitlbee)
+
 
 Information
 -----------
