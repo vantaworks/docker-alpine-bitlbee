@@ -15,6 +15,8 @@ ARG BITLBEE_TAG=master
 RUN addgroup -g ${GID} -S bitlbee && \
     adduser -u ${UID} -D -S -G bitlbee bitlbee && \
     apk add --no-cache --update --virtual bitlbee-runtime-deps \
+        gnutls \
+        libgcrypt \
  	    tzdata \
 	    bash \
 	    glib \
@@ -41,13 +43,18 @@ RUN addgroup -g ${GID} -S bitlbee && \
 	    --purple=1 \
 	    --ssl=gnutls \
 	    --prefix=/usr \
-	    --etcdir=/etc/bitlbee && \
+	    --etcdir=/etc/bitlbee \
+	    --pidfile=/var/run/bitlbee/bitlbee.pid &&\
 	make && \
 	make install && \
 	make install-dev && \
 	make install-etc && \
 	strip /usr/sbin/bitlbee && \
 	rm -rf /tmp/* && \
+	mkdir -p /var/lib/bitlbee/ && \
+    chown bitlbee:bitlbee /var/lib/bitlbee && \
+    mkdir -p /var/run/bitlbee/ && \
+    chown bitlbee:bitlbee /var/run/bitlbee && \
 	apk del bitlbee-build-deps
 
 ###########
@@ -394,7 +401,6 @@ RUN if [ ${SIGNAL_ENABLED} -eq 1 ]; then cd /tmp && \
 	rm -rf /tmp/* && \
 	apk del signal-build-deps; fi
 
-
 USER bitlbee
-VOLUME /opt/bitlbee-data
-ENTRYPOINT ["/usr/local/sbin/bitlbee", "-F", "-n", "-d", "/opt/bitlbee-data"]
+EXPOSE 6667
+CMD [ "/usr/sbin/bitlbee", "-F", "-n" ]

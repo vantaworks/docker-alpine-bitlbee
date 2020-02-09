@@ -5,15 +5,15 @@ all: clean dist
 
 .PHONY: kill
 kill:
-	@docker kill ${CONTAINER_NAME} || echo no container to remove && true
+	@docker stop ${CONTAINER_NAME} || echo no container to remove && true
 
 .PHONY: rm
-rm:
-	@docker rm ${CONTAINER_NAME} || echo no container to remove && true
+rm: kill
+	@docker rm -f ${CONTAINER_NAME} || echo no container to remove && true
 
 .PHONY: clean
 clean: rm kill
-	@docker image rm ${CONTAINER_NAME} || echo no image to remove && true
+	@docker image rm -f ${CONTAINER_NAME} || echo no image to remove && true
 
 .PHONY: dist
 dist: clean
@@ -35,8 +35,12 @@ dist: clean
 	  --build-arg SIGNAL_ENABLED=1
 
 .PHONY: run
-run: info
-	docker run -d --name ${CONTAINER_NAME} ${CONTAINER_NAME}
+run:
+	docker run -d \
+      --name ${CONTAINER_NAME} \
+      --restart=always \
+      -p 0.0.0.0:6667:6667 \
+      ${CONTAINER_NAME}:latest
 
 .PHONY: shell
 shell:
