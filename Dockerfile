@@ -183,7 +183,7 @@ RUN if [ ${MATTERMOST_ENABLED} -eq 1 ]; then cd /tmp && \
 # Hangouts #
 ############
 ARG HANGOUTS_ENABLED=1
-ARG HANGOUTS_TAG=tip
+ARG HANGOUTS_TAG=master
 RUN if [ ${HANGOUTS_ENABLED} -eq 1 ]; then cd /tmp && \
     apk add --no-cache --update --virtual hangouts-run-deps \
 	    protobuf-c \
@@ -194,8 +194,9 @@ RUN if [ ${HANGOUTS_ENABLED} -eq 1 ]; then cd /tmp && \
 	    pidgin-dev \
 	    protobuf-c-dev \
 	    json-glib-dev && \
-	hg clone https://bitbucket.org/EionRobb/purple-hangouts -r ${HANGOUTS_TAG} && \
+	git clone https://github.com/EionRobb/purple-hangouts.git && \
 	cd purple-hangouts && \
+	git checkout ${HANGOUTS_TAG} && \
 	make && \
 	make install && \
 	strip /usr/lib/purple-2/libhangouts.so && \
