@@ -189,8 +189,8 @@ RUN if [ ${HANGOUTS_ENABLED} -eq 1 ]; then cd /tmp && \
 	    protobuf-c \
 	    json-glib && \
 	apk add --no-cache --update --virtual hangouts-build-deps \
+	    git \
 	    build-base \
-	    mercurial \
 	    pidgin-dev \
 	    protobuf-c-dev \
 	    json-glib-dev && \
@@ -296,19 +296,20 @@ RUN if [ ${SIPE_ENABLED} -eq 1 ]; then cd /tmp \
 # RocketChat #
 ##############
 ARG ROCKETCHAT_ENABLED=1
-ARG ROCKETCHAT_TAG=tip
+ARG ROCKETCHAT_TAG=master
 RUN if [ ${ROCKETCHAT_ENABLED} -eq 1 ]; then cd /tmp && \
     apk add --no-cache --update --virtual rocketchat-run-deps \
 	    discount \
 	    json-glib && \
 	apk add --no-cache --update --virtual rocketchat-build-deps \
 	    build-base \
-	    mercurial \
+	    git \
 	    pidgin-dev \
 	    json-glib-dev \
 	    discount-dev && \
-	hg clone https://bitbucket.org/EionRobb/purple-rocketchat -r ${ROCKETCHAT_TAG} && \
+	git clone https://github.com/EionRobb/purple-rocketchat.git && \
 	cd purple-rocketchat && \
+	git checkout ${ROCKETCHAT_TAG} && \
 	make && \
 	make install && \
 	strip /usr/lib/purple-2/librocketchat.so && \
