@@ -1,6 +1,5 @@
 BitlBee with Plugins on Docker
 ==============================
-[![Build Status](https://travis-ci.com/vantaworks/docker-alpine-bitlbee.svg?branch=master)](https://travis-ci.com/vantaworks/docker-alpine-bitlbee)
 
 
 Information
@@ -28,14 +27,14 @@ Below are the projects bundled in the Docker Image:
 4. Skypeweb: https://github.com/EionRobb/skype4pidgin
 5. Slack: https://github.com/dylex/slack-libpurple
 6. Mattermost: https://github.com/EionRobb/purple-mattermost
-7. Google Hangouts: https://bitbucket.org/EionRobb/purple-hangouts
-8. Steam: https://github.com/bitlbee/bitlbee-steam
-9. Telegram: https://github.com/majn/telegram-purple
-10. SIPE: https://github.com/tieto/sipe.git
-11. RocketChat: https://bitbucket.org/EionRobb/purple-rocketchat
-12. Mastodon: https://github.com/kensanata/bitlbee-mastodon
-13. Matrix: https://github.com/matrix-org/purple-matrix
-14. Signal: https://github.com/hoehermann/libpurple-signald
+7. Google Hangouts: https://github.com/EionRobb/purple-hangouts
+8. Google Chat: https://github.com/EionRobb/purple-googlechat
+9. Steam: https://github.com/bitlbee/bitlbee-steam
+10. Telegram: https://github.com/majn/telegram-purple
+11. SIPE: https://github.com/tieto/sipe.git
+12. RocketChat: https://bitbucket.org/EionRobb/purple-rocketchat
+13. Mastodon: https://github.com/kensanata/bitlbee-mastodon
+14. Matrix: https://github.com/matrix-org/purple-matrix
 
 ### Will you include x chat?
 I'm fairly open to requests. File an issue, or shoot me over a PR and I'll see that we get it included.
@@ -53,6 +52,7 @@ docker build -t docker-alpine-bitlbee . \
   --build-arg SLACK_TAG=8acc4eb \
   --build-arg HANGOUTS_ENABLED=1 \
   --build-arg HANGOUTS_TAG=3f7d89b \
+  --build-arg GOOGLE_CHAT_ENABLED=0 \
   --build-arg DISCORD_ENABLED=0 \
   --build-arg FACEBOOK_ENABLED=0 \
   --build-arg SKYPEWEB_ENABLED=0 \
@@ -63,7 +63,6 @@ docker build -t docker-alpine-bitlbee . \
   --build-arg MATRIX_ENABLED=0 \
   --build-arg MATTERMOST_ENABLED=0 \
   --build-arg MASTODON_ENABLED=0 \
-  --build-arg SIGNAL_ENABLED=0
 ```
 
 Running

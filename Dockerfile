@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.13
 LABEL maintainer=h4110w33n@gmail.com
 
 # Globals
@@ -56,6 +56,29 @@ RUN addgroup -g ${GID} -S bitlbee && \
     mkdir -p /var/run/bitlbee/ && \
     chown bitlbee:bitlbee /var/run/bitlbee && \
 	apk del bitlbee-build-deps
+
+###############
+# GOOGLE CHAT #
+###############
+ARG GOOGLE_CHAT_ENABLED=1
+ARG GOOGLE_CHAT_TAG=master
+RUN if [ ${GOOGLE_CHAT_ENABLED} -eq 1 ]; then cd /tmp && \
+    apk add --no-cache --update --virtual google-chat-run-deps \
+	    protobuf-c \
+	    json-glib && \
+	apk add --no-cache --update --virtual google-chat-build-deps \
+	    git \
+	    build-base \
+	    pidgin-dev \
+	    protobuf-c-dev \
+	    json-glib-dev && \
+	git clone -n https://github.com/EionRobb/purple-googlechat.git && \
+	cd purple-googlechat && \
+	git checkout ${GOOGLE_CHAT_TAG} && \
+	make && \
+	make install && \
+	rm -rf /tmp/* && \
+	apk del google-chat-build-deps; fi
 
 ###########
 # DISCORD #
@@ -380,28 +403,6 @@ RUN if [ ${MATRIX_ENABLED} -eq 1 ]; then cd /tmp && \
 	strip /usr/lib/purple-2/libmatrix.so && \
 	rm -rf /tmp/* && \
 	apk del matrix-build-deps; fi
-
-##########
-# Signal #
-##########
-ARG SIGNAL_ENABLED=1
-ARG SIGNAL_TAG=master
-RUN if [ ${SIGNAL_ENABLED} -eq 1 ]; then cd /tmp && \
-	apk add --no-cache --update --virtual signal-build-deps \
-	    build-base \
-	    git \
-	    libtool \
-	    pidgin-dev \
-	    glib-dev \
-	    json-glib-dev && \
-	git clone -n https://github.com/hoehermann/libpurple-signald.git && \
-	cd libpurple-signald && \
-	git checkout ${SIGNAL_TAG} && \
-	make && \
-	make install && \
-	strip /usr/lib/purple-2/libsignald.so && \
-	rm -rf /tmp/* && \
-	apk del signal-build-deps; fi
 
 USER bitlbee
 EXPOSE 6667
