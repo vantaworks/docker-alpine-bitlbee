@@ -62,7 +62,7 @@ docker build -t docker-alpine-bitlbee . \
   --build-arg ROCKETCHAT_ENABLED=0 \
   --build-arg MATRIX_ENABLED=0 \
   --build-arg MATTERMOST_ENABLED=0 \
-  --build-arg MASTODON_ENABLED=0 \
+  --build-arg MASTODON_ENABLED=0
 ```
 
 Running
