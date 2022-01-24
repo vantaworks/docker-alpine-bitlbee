@@ -111,7 +111,7 @@ RUN if [ ${DISCORD_ENABLED} -eq 1 ]; then cd /tmp && \
 # Facebook #
 ############
 ARG FACEBOOK_ENABLED=1
-ARG FACEBOOK_TAG=master
+ARG FACEBOOK_TAG=fix_login
 RUN if [ ${FACEBOOK_ENABLED} -eq 1 ]; then cd /tmp && \
     apk add --no-cache --update --virtual facebook-run-deps \
 	    json-glib && \
@@ -123,7 +123,7 @@ RUN if [ ${FACEBOOK_ENABLED} -eq 1 ]; then cd /tmp && \
 	    libtool \
 	    glib-dev \
 	    json-glib-dev && \
-	git clone -n https://github.com/bitlbee/bitlbee-facebook.git && \
+	git clone -n https://github.com/gmartsenkov/bitlbee-facebook.git && \
 	cd bitlbee-facebook && \
 	git checkout ${FACEBOOK_TAG} && \
 	./autogen.sh \
